@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+
+# Local SolidWorks and ComAct runtime artifacts
+output/
+results/
