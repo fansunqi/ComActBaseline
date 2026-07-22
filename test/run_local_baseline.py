@@ -67,8 +67,7 @@ def main() -> None:
         "close_window": True,
     }
 
-    # These are the settings and base (no few-shot, no RAG) path from
-    # test/run_base.sh and test/run.py.
+    # Use ComAct's original SolidWorks example; keep RAG disabled.
     agent = PromptAgent(
         model=args.model,
         temperature=args.temperature,
@@ -79,7 +78,7 @@ def main() -> None:
         api_server="claudeshop",
         base_url=args.base_url,
         api_key=api_key,
-        with_example=False,
+        with_example=True,
         task_type="3d_model",
         software="sldworks",
         with_rag=False,
