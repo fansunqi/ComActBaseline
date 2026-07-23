@@ -328,7 +328,7 @@ Here are some COM APIs that might be useful for completing this task.
             end_call_llm_time = datetime.now()
         except Exception as e:
             logger.error("Failed to call" + self.model + ", Error: " + str(e))
-            exit(0)
+            raise RuntimeError(f"Failed to call {self.model}: {e}") from e
 
         py_codes = self.parse_py_codes(response['message']) if self.parse_py_codes(response['message']) else ""
         decision = self.parse_decision(response['message']) if self.parse_decision(response['message']) else "CODE"
@@ -367,10 +367,21 @@ Here are some COM APIs that might be useful for completing this task.
             try:
                 if 'https' in url:
                     logger.info(f'url: {url}, proxies: {proxies}')
-                    response = requests.post(url, headers=headers, data=payload, proxies=proxies)
+                    response = requests.post(
+                        url,
+                        headers=headers,
+                        data=payload,
+                        proxies=proxies,
+                        timeout=180,
+                    )
                 else:
                     logger.info(f'url: {url}')
-                    response = requests.post(url, headers=headers, data=payload)
+                    response = requests.post(
+                        url,
+                        headers=headers,
+                        data=payload,
+                        timeout=180,
+                    )
 
                 if response.status_code == 200:
                     data = response.json()
@@ -396,6 +407,9 @@ Here are some COM APIs that might be useful for completing this task.
                 attempt_count += 1
                 logger.error(f"Error occurred when calling openai api {e}, retrying...")
                 time.sleep(5)
+        raise RuntimeError(
+            f"LLM API did not return a usable response after {max_attempts} attempts."
+        )
 
     def parse_py_codes(self, response: str):
         matches = re.findall(r'```python\s*(.*?)\s*```', response, re.DOTALL)

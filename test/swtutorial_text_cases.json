@@ -1,0 +1,137 @@
+[
+  {
+    "case_id": "phone_stand",
+    "name": "一体式手机支架",
+    "prompt": "创建一个一体式桌面手机支架，所有结构必须合并为单一实体。底座长110mm、宽78mm、厚8mm；78mm宽的倾斜背板厚6mm，与水平面成74°，从底座上表面升起，成品总高度118mm。底座前端设置贯穿全宽的挡唇，前后厚10mm，高出底座上表面12mm，使成品前端总高度20mm。背板左右两侧各有一个三角加强筋。背板下部中央开一个宽16mm、向下开口高度28mm的充电线U形通槽；背板中上部开3个36×8mm的水平贯穿散热槽，槽中心竖向间距18mm。底面加工两个24×10mm、深1.5mm的防滑垫浅凹槽。最后尽可能对适合的外轮廓做R4mm圆角，同时保持底面平整、支架左右对称。",
+    "expected_bbox_mm": [78.0, 116.0, 118.0],
+    "bbox_tolerance_mm": 5.0,
+    "volume_range_mm3": [80000.0, 180000.0],
+    "expected_details": {"extrusions": 1, "cuts": 2, "fillets": 1}
+  },
+  {
+    "case_id": "stool",
+    "name": "四脚板凳",
+    "prompt": "创建四脚板凳：凳面 200×200×20mm；四条圆柱腿直径 20mm、长 150mm，腿中心距相邻边 30mm。",
+    "expected_bbox_mm": [170.0, 200.0, 200.0],
+    "bbox_tolerance_mm": 20.0,
+    "volume_range_mm3": [900000.0, 1050000.0],
+    "expected_details": {"extrusions": 2}
+  },
+  {
+    "case_id": "rounded_stool",
+    "name": "圆角板凳",
+    "prompt": "创建四脚板凳：凳面 200×200×20mm；四条圆柱腿直径 20mm、长 150mm，距边 30mm；凳面顶部四条边做 R5mm 圆角。",
+    "expected_bbox_mm": [170.0, 200.0, 200.0],
+    "bbox_tolerance_mm": 20.0,
+    "volume_range_mm3": [900000.0, 1050000.0],
+    "expected_details": {"extrusions": 2, "fillets": 1}
+  },
+  {
+    "case_id": "storage_box",
+    "name": "收纳盒",
+    "prompt": "创建顶部敞开的长方形收纳盒，外部 120×80×50mm，壁厚和底厚均为 8mm，顶部开口边做 R3mm 圆角。",
+    "expected_bbox_mm": [50.0, 80.0, 120.0],
+    "bbox_tolerance_mm": 5.0,
+    "volume_range_mm3": [180000.0, 220000.0],
+    "expected_details": {"extrusions": 1, "cuts": 1, "fillets": 1}
+  },
+  {
+    "case_id": "standard_die",
+    "name": "标准骰子",
+    "prompt": "创建边长 20mm 的标准六面骰子，全部棱边 R1.5mm；六面分别为 1 至 6 点、相对面点数和为 7；点为直径 3mm、深 1.5mm 的凹坑。",
+    "expected_bbox_mm": [20.0, 20.0, 20.0],
+    "bbox_tolerance_mm": 2.0,
+    "volume_range_mm3": [7000.0, 8000.0],
+    "expected_details": {"extrusions": 1, "cuts": 6, "fillets": 1}
+  },
+  {
+    "case_id": "hex_nut",
+    "name": "六角螺母",
+    "prompt": "创建对边距 30mm、厚 8mm 的正六角螺母，中心有直径 10mm 的贯穿孔，厚度方向关于原点居中。",
+    "expected_bbox_mm": [8.0, 30.0, 34.641],
+    "bbox_tolerance_mm": 3.0,
+    "volume_range_mm3": [4500.0, 6500.0],
+    "expected_details": {"extrusions": 1, "polygons": 1, "circles": 1}
+  },
+  {
+    "case_id": "mug",
+    "name": "马克杯",
+    "prompt": "创建高 90mm、外径 70mm、壁厚 5mm、底厚 10mm 的圆柱形马克杯，并添加外径 40mm、条粗 8mm、厚 8mm 的环形把手。",
+    "expected_bbox_mm": [70.0, 90.0, 100.0],
+    "bbox_tolerance_mm": 15.0,
+    "volume_range_mm3": [100000.0, 145000.0],
+    "expected_details": {"extrusions": 2, "cuts": 1, "circles": 3}
+  },
+  {
+    "case_id": "wrench",
+    "name": "扳手",
+    "prompt": "创建厚 8mm 的单头扳手：头部外径 40mm、中心正六角卡口对边距 13mm；手柄长 120mm、宽 15mm，并与头部可靠合并。",
+    "expected_bbox_mm": [8.0, 40.0, 140.0],
+    "bbox_tolerance_mm": 8.0,
+    "volume_range_mm3": [17000.0, 24000.0],
+    "expected_details": {"extrusions": 2, "polygons": 1}
+  },
+  {
+    "case_id": "vase",
+    "name": "花瓶",
+    "prompt": "创建高 150mm 的轴对称空心花瓶：底部平坦，中部最大直径 90mm，瓶颈直径 40mm，瓶口直径 55mm，底厚 10mm。",
+    "expected_bbox_mm": [90.0, 90.0, 150.0],
+    "bbox_tolerance_mm": 10.0,
+    "volume_range_mm3": [300000.0, 500000.0],
+    "expected_details": {"revolves": 1, "centerlines": 1}
+  },
+  {
+    "case_id": "key",
+    "name": "钥匙",
+    "prompt": "创建厚 2mm 的小型钥匙：外径 20mm 的钥匙圈头、10×5mm 圈孔、42×8mm 钥匙杆，并在杆的一侧均布 5 个齿槽。",
+    "expected_bbox_mm": [2.0, 20.0, 59.0],
+    "bbox_tolerance_mm": 8.0,
+    "volume_range_mm3": [800.0, 1500.0],
+    "expected_details": {"extrusions": 2, "cuts": 1}
+  },
+  {
+    "case_id": "gear_disc",
+    "name": "齿轮盘",
+    "prompt": "创建直径 60mm、厚 8mm 的圆盘，中心有直径 12mm 贯穿孔，并在接近外缘处均布 12 个相同的小贯穿槽。",
+    "expected_bbox_mm": [8.0, 60.0, 60.0],
+    "bbox_tolerance_mm": 4.0,
+    "volume_range_mm3": [17500.0, 22000.0],
+    "expected_details": {"extrusions": 1, "cuts": 1}
+  },
+  {
+    "case_id": "flange",
+    "name": "法兰盘",
+    "prompt": "创建直径 100mm、厚 12mm 的圆形法兰，中心贯穿孔直径 30mm，并在节圆直径 80mm 上均布 6 个直径 8mm 的贯穿孔。",
+    "expected_bbox_mm": [12.0, 100.0, 100.0],
+    "bbox_tolerance_mm": 3.0,
+    "volume_range_mm3": [78000.0, 86000.0],
+    "expected_details": {"extrusions": 1, "circles": 8}
+  },
+  {
+    "case_id": "pulley",
+    "name": "皮带轮",
+    "prompt": "创建直径 100mm、厚 20mm 的简化皮带轮，中心贯穿孔直径 25mm，顶部有外径 90mm、内径 70mm、深 10mm 的环槽，外轮缘做 C1mm 倒角。",
+    "expected_bbox_mm": [20.0, 100.0, 100.0],
+    "bbox_tolerance_mm": 3.0,
+    "volume_range_mm3": [115000.0, 128000.0],
+    "expected_details": {"extrusions": 1, "cuts": 1, "chamfers": 1}
+  },
+  {
+    "case_id": "stepped_shaft",
+    "name": "三段阶梯轴",
+    "prompt": "使用一次旋转创建总长 90mm 的三段阶梯轴：各段直径和长度依次为 35×40mm、50×30mm、25×20mm，轴向关于原点居中。",
+    "expected_bbox_mm": [50.0, 50.0, 90.0],
+    "bbox_tolerance_mm": 3.0,
+    "volume_range_mm3": [102000.0, 111500.0],
+    "expected_details": {"revolves": 1, "centerlines": 1}
+  },
+  {
+    "case_id": "socket_bolt",
+    "name": "内六角螺栓",
+    "prompt": "创建简化内六角圆柱头螺栓：杆径 10mm、杆长 50mm；头部直径 18mm、高 6mm；顶部内六角对边距 8mm、盲孔深 4mm；头杆交界 R0.5mm。",
+    "expected_bbox_mm": [18.0, 18.0, 56.0],
+    "bbox_tolerance_mm": 2.0,
+    "volume_range_mm3": [5200.0, 7200.0],
+    "expected_details": {"extrusions": 2, "cuts": 1, "polygons": 1, "fillets": 1}
+  }
+]
