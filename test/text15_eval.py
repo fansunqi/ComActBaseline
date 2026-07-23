@@ -282,7 +282,10 @@ def _volume_score(actual: float, expected: list[float]) -> tuple[float, bool]:
 def score_case(
     case: dict[str, Any], geometry: dict[str, Any], executions: list[dict[str, Any]]
 ) -> dict[str, Any]:
-    successful = sum(item.get("returncode") == 0 for item in executions)
+    successful = sum(
+        item.get("returncode") == 0 and item.get("code_present", True)
+        for item in executions
+    )
     all_ok = bool(executions) and successful == len(executions)
     rate = successful / len(executions) if executions else 0.0
     execution_points = round(20.0 * rate + (5.0 if all_ok else 0.0), 2)

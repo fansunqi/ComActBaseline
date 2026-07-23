@@ -302,6 +302,17 @@ Here are some COM APIs that might be useful for completing this task.
                         base_url=self.base_url,
                         api_key=self.api_key,
                     )
+                elif 'glm-4.6v' in self.model.lower():
+                    response = self.call_llm_claudeshop(
+                        payload={
+                            "model": self.model,
+                            "messages": messages,
+                            "max_tokens": self.max_tokens,
+                            "temperature": self.temperature,
+                        },
+                        base_url=self.base_url,
+                        api_key=self.api_key,
+                    )
                 else:
                     response = self.call_llm_claudeshop(
                         payload={
@@ -351,6 +362,8 @@ Here are some COM APIs that might be useful for completing this task.
 
         logger.info('In call_llm_claudeshop')
 
+        is_glm_46v = 'glm-4.6v' in str(payload.get("model", "")).lower()
+        request_timeout = 600 if is_glm_46v else 180
         payload = json.dumps(payload)
 
         url = base_url + "/v1/chat/completions"
@@ -362,7 +375,7 @@ Here are some COM APIs that might be useful for completing this task.
         }
 
         attempt_count = 0
-        max_attempts = 5
+        max_attempts = 3 if is_glm_46v else 5
         while attempt_count < max_attempts:
             try:
                 if 'https' in url:
@@ -372,7 +385,7 @@ Here are some COM APIs that might be useful for completing this task.
                         headers=headers,
                         data=payload,
                         proxies=proxies,
-                        timeout=180,
+                        timeout=request_timeout,
                     )
                 else:
                     logger.info(f'url: {url}')
@@ -380,7 +393,7 @@ Here are some COM APIs that might be useful for completing this task.
                         url,
                         headers=headers,
                         data=payload,
-                        timeout=180,
+                        timeout=request_timeout,
                     )
 
                 if response.status_code == 200:
@@ -389,12 +402,22 @@ Here are some COM APIs that might be useful for completing this task.
                     if data['choices'][0]['message']['content'].strip():
                         processed_response = {
                             'message': data['choices'][0]['message']['content'],
+                            'reasoning_content': data['choices'][0]['message'].get(
+                                'reasoning_content'
+                            ),
                             'model': data['model'],
                             'completion_tokens': data['usage']['completion_tokens'],
                             'prompt_tokens': data['usage']['prompt_tokens'],
                             'total_tokens': data['usage']['total_tokens'],
+                            'raw_response': data,
                         }
-                        logger.info(f"Processed_response: {processed_response}")
+                        logger.info(
+                            "Processed response: model=%s, prompt_tokens=%s, "
+                            "completion_tokens=%s",
+                            processed_response["model"],
+                            processed_response["prompt_tokens"],
+                            processed_response["completion_tokens"],
+                        )
                         return processed_response
 
                         exit(0)

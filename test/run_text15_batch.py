@@ -88,7 +88,12 @@ def main() -> None:
         "max_trajectory_length": args.max_trajectory_length,
         "max_tokens": args.max_tokens,
         "temperature": args.temperature,
-        "top_p": args.top_p,
+        "top_p": None if "glm-4.6v" in args.model.lower() else args.top_p,
+        "thinking": (
+            "provider_default"
+            if "glm-4.6v" in args.model.lower()
+            else "disabled" if "qwen3.5" in args.model.lower() else "unspecified"
+        ),
         "with_example": True,
         "with_rag": False,
         "case_ids": [case["case_id"] for case in cases],
@@ -107,7 +112,7 @@ def main() -> None:
         if result_path.exists() and not args.force:
             logging.info("[%d/%d] Resume: skipping %s", index, len(cases), case["case_id"])
             continue
-        if case_dir.exists() and not result_path.exists():
+        if case_dir.exists() and (args.force or not result_path.exists()):
             shutil.rmtree(case_dir)
         logging.info("[%d/%d] Running %s (%s)", index, len(cases), case["case_id"], case["name"])
         summary = run_case(

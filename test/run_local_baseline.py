@@ -102,7 +102,12 @@ def run_case(
         "max_trajectory_length": max_trajectory_length,
         "max_tokens": max_tokens,
         "temperature": temperature,
-        "top_p": top_p,
+        "top_p": None if "glm-4.6v" in model.lower() else top_p,
+        "thinking": (
+            "provider_default"
+            if "glm-4.6v" in model.lower()
+            else "disabled" if "qwen3.5" in model.lower() else "unspecified"
+        ),
         "with_example": True,
         "with_rag": False,
     }
@@ -161,6 +166,7 @@ def run_case(
                 executions.append(
                     {
                         "step": step_idx,
+                        "code_present": bool(py_codes.strip()),
                         "returncode": terminal.get("returncode"),
                         "stdout": terminal.get("output", ""),
                         "stderr": terminal.get("error", ""),

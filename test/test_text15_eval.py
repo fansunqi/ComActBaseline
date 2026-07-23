@@ -56,6 +56,15 @@ class Text15EvalTests(unittest.TestCase):
         self.assertEqual(score["score"], 0.0)
         self.assertFalse(score["acceptance_ok"])
 
+    def test_empty_code_is_not_successful_execution(self) -> None:
+        score = score_case(
+            load_cases()[0],
+            {},
+            [{"returncode": 0, "code_present": False}],
+        )
+        self.assertEqual(score["execution_points"], 0.0)
+        self.assertFalse(score["acceptance_ok"])
+
 
 if __name__ == "__main__":
     unittest.main()
